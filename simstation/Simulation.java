@@ -12,11 +12,12 @@ public class Simulation extends Model {
 
     public Simulation(){
         agents = new LinkedList<Agent>();
-        timer = new Timer();
+        startTimer();
         clock = 0;
     }
     public void addAgent(Agent a){
         agents.add(a);
+        a.setSimulation(this);
     }
     private void startTimer() {
         timer = new Timer();
@@ -34,6 +35,10 @@ public class Simulation extends Model {
     public void resume(){
         for(Agent a: agents)
             a.resume();
+    }
+    public void suspend(){
+        for(Agent a: agents)
+            a.suspend();
     }
     public void stop(){
         for(Agent a: agents)
