@@ -7,7 +7,7 @@ public abstract class Agent implements Runnable, Serializable {
     private Simulation world;
     private String name;
     protected Heading heading;
-    int xc, yc;
+    protected int xc, yc;
     boolean suspended, stopped;
     Thread myThread;
     public Agent(){
@@ -36,7 +36,7 @@ public abstract class Agent implements Runnable, Serializable {
                 suspended = false;
             }
         } catch (InterruptedException e){
-            System.out.println(e.getMessage());
+           Utilities.inform(e.getMessage());
         }
     }
 
@@ -52,11 +52,11 @@ public abstract class Agent implements Runnable, Serializable {
         myThread = Thread.currentThread();
         while(isStopped() == false){
             try{
+                checkSuspended();
                 update();
                 Thread.sleep(20);
-                checkSuspended();
             } catch(InterruptedException e){
-                System.out.println(e.getMessage());
+                Utilities.inform(e.getMessage());
             }
         }
     }
