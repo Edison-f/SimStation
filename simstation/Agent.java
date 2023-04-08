@@ -52,9 +52,9 @@ public abstract class Agent implements Runnable, Serializable {
         myThread = Thread.currentThread();
         while(isStopped() == false){
             try{
+                checkSuspended();
                 update();
                 Thread.sleep(20);
-                checkSuspended();
             } catch(InterruptedException e){
                 System.out.println(e.getMessage());
             }
@@ -122,6 +122,6 @@ public abstract class Agent implements Runnable, Serializable {
                 break;
             }
         }
-        world.changed();
+        world.notify();
     }
 }
