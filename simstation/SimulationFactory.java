@@ -1,6 +1,6 @@
 package simstation;
 import mvc.*;
-public class SimStationFactory implements AppFactory{
+public class SimulationFactory implements AppFactory{
     public Model makeModel(){ return new Simulation(); }
     public String[] getEditCommands() {
         return new String[] { "Resume", "Start", "Stop", "Stats", "Suspend"};

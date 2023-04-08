@@ -1,5 +1,6 @@
 package simstation;
 
+import java.awt.geom.Ellipse2D;
 import java.util.*;
 import mvc.*;
 
@@ -11,6 +12,7 @@ public class Simulation extends Model {
 
     public Simulation(){
         agents = new LinkedList<Agent>();
+        populate();
         startTimer();
         clock = 0;
     }
@@ -48,6 +50,7 @@ public class Simulation extends Model {
         int num_agents = agents.size();
         Utilities.inform(new String[]{String.valueOf(num_agents), String.valueOf(clock)});
     }
+
     public Agent getNeighbor(Agent a, double radius){
         // 0 to (agents.size() - 1)
         int start = Utilities.rng.nextInt(agents.size());

@@ -1,4 +1,19 @@
 package simstation;
 import mvc.*;
-public class SimulationPanel {
+
+import javax.swing.*;
+
+public class SimulationPanel extends AppPanel {
+
+    public SimulationPanel(SimulationFactory factory) {
+        super(factory);
+        String[] buttonNames = new String[] {"Start", "Suspend", "Resume", "Stop", "Stats"};
+        for (String s :
+                buttonNames) {
+            JButton temp = new JButton(s);
+            temp.addActionListener(this);
+            controlPanel.add(temp);
+        }
+    }
+
 }
