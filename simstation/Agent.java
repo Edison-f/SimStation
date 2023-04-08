@@ -1,5 +1,6 @@
 package simstation;
 
+import mvc.Utilities;
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -38,8 +39,14 @@ public abstract class Agent implements Runnable, Serializable {
             System.out.println(e.getMessage());
         }
     }
-    // Needs to be completed
-    public void start(){}
+
+    public void start() {
+        heading = Heading.random();
+        xc = Utilities.rng.nextInt(800); // Replace with actual window sizes
+        yc = Utilities.rng.nextInt(600);
+        run();
+    }
+    
     // Double check
     public void run(){
         myThread = Thread.currentThread();
