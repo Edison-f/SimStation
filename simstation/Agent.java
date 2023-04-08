@@ -115,5 +115,6 @@ public abstract class Agent implements Runnable, Serializable {
                 break;
             }
         }
+        world.changed();
     }
 }

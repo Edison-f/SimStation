@@ -44,6 +44,11 @@ public class Simulation extends Model {
         for(Agent a: agents)
             a.stop();
     }
+
+    public void stats(){
+        int num_agents = agents.size();
+        Utilities.inform(new String[]{String.valueOf(num_agents), String.valueOf(clock)});
+    }
     public Agent getNeighbor(Agent a, double radius){
         // placeholder
         return a;
