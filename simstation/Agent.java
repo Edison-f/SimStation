@@ -41,6 +41,13 @@ public abstract class Agent implements Runnable, Serializable {
            Utilities.inform(e.getMessage());
         }
     }
+    public synchronized void join() {
+        try {
+            if (myThread != null) myThread.join();
+        } catch(InterruptedException e) {
+            Utilities.inform(e.getMessage());
+        }
+    }
 
     public void start() {
         heading = Heading.random();
