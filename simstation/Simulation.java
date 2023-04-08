@@ -46,13 +46,9 @@ public class Simulation extends Model {
             a.stop();
     }
 
-    public Ellipse2D.Double[] generateShapes() {
-        Ellipse2D.Double[] result = new Ellipse2D.Double[agents.size()];
-        for (int i = 0; i < result.length; i++) {
-            Agent curr = agents.get(i);
-            result[i] = new Ellipse2D.Double(curr.xc, curr.yc, 10, 10);
-        }
-        return result;
+    public void stats(){
+        int num_agents = agents.size();
+        Utilities.inform(new String[]{String.valueOf(num_agents), String.valueOf(clock)});
     }
 
     public Agent getNeighbor(Agent a, double radius){
