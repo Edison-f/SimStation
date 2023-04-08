@@ -1,5 +1,6 @@
 package simstation;
 
+import java.awt.geom.Ellipse2D;
 import java.util.*;
 import mvc.*;
 
@@ -12,6 +13,7 @@ public class Simulation extends Model {
 
     public Simulation(){
         agents = new LinkedList<Agent>();
+        populate();
         startTimer();
         clock = 0;
     }
@@ -44,6 +46,16 @@ public class Simulation extends Model {
         for(Agent a: agents)
             a.stop();
     }
+
+    public Ellipse2D.Double[] generateShapes() {
+        Ellipse2D.Double[] result = new Ellipse2D.Double[agents.size()];
+        for (int i = 0; i < result.length; i++) {
+            Agent curr = agents.get(i);
+            result[i] = new Ellipse2D.Double(curr.xc, curr.yc, 10, 10);
+        }
+        return result;
+    }
+
     public Agent getNeighbor(Agent a, double radius){
         // placeholder
         return a;
