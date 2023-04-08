@@ -1,55 +1,6 @@
 package simstation;
 
-<<<<<<< HEAD
-import jdk.jshell.execution.Util;
 import mvc.Utilities;
-
-import java.io.Serializable;
-
-abstract public class Agent implements Serializable, Runnable {
-
-    private String name;
-    public Heading heading;
-    private int xc;
-    private int yc;
-    private boolean suspended;
-    private boolean stopped;
-    private Thread myThread;
-
-    public Agent() {
-        suspended = false;
-        stopped = false;
-    }
-
-    @Override
-    public void run() {
-
-    }
-
-    public void start() {
-        heading = Heading.random();
-        xc = Utilities.rng.nextInt(999); // Replace with actual window sizes
-        yc = Utilities.rng.nextInt(999);
-        run();
-    }
-
-    public void suspend() {
-
-    }
-
-    public void resume() {
-
-    }
-
-    public void stop() {
-
-    }
-
-    abstract public void update();
-
-    public void move(int steps) {
-
-=======
 import java.io.Serializable;
 
 public abstract class Agent implements Runnable, Serializable {
@@ -88,8 +39,14 @@ public abstract class Agent implements Runnable, Serializable {
             System.out.println(e.getMessage());
         }
     }
-    // Needs to be completed
-    public void start(){}
+
+    public void start() {
+        heading = Heading.random();
+        xc = Utilities.rng.nextInt(800); // Replace with actual window sizes
+        yc = Utilities.rng.nextInt(600);
+        run();
+    }
+    
     // Double check
     public void run(){
         myThread = Thread.currentThread();
@@ -165,6 +122,5 @@ public abstract class Agent implements Runnable, Serializable {
                 break;
             }
         }
->>>>>>> master
     }
 }

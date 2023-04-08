@@ -1,10 +1,4 @@
 package simstation;
-<<<<<<< HEAD
-
-public class Heading {
-    public static Heading random() {
-        return null;
-=======
 import mvc.Utilities;
 
 import static mvc.Utilities.rng;
@@ -32,6 +26,5 @@ public enum Heading {
             return SOUTHWEST;
         else
             return SOUTHEAST;
->>>>>>> master
     }
 }
