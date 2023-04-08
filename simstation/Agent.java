@@ -3,6 +3,8 @@ package simstation;
 import mvc.Utilities;
 import java.io.Serializable;
 
+import static mvc.Utilities.rng;
+
 public abstract class Agent implements Runnable, Serializable {
     private Simulation world;
     private String name;
@@ -13,8 +15,8 @@ public abstract class Agent implements Runnable, Serializable {
     public Agent(){
         name = " ";
         heading = heading.NORTH;
-        xc = 0;
-        yc = 0;
+        xc = rng.nextInt(250);
+        yc = rng.nextInt(250);
         suspended = false;
         stopped = false;
         myThread = null;
@@ -42,8 +44,8 @@ public abstract class Agent implements Runnable, Serializable {
 
     public void start() {
         heading = Heading.random();
-        xc = Utilities.rng.nextInt(800); // Replace with actual window sizes
-        yc = Utilities.rng.nextInt(600);
+        xc = rng.nextInt(250); // Replace with actual window sizes
+        yc = rng.nextInt(250);
         run();
     }
     
