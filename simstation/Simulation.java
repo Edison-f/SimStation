@@ -8,7 +8,6 @@ public class Simulation extends Model {
 
     private Timer timer;
     private int clock;
-
     List<Agent> agents;
 
     public Simulation(){
@@ -47,19 +46,36 @@ public class Simulation extends Model {
             a.stop();
     }
 
-    public Ellipse2D.Double[] generateShapes() {
-        Ellipse2D.Double[] result = new Ellipse2D.Double[agents.size()];
-        for (int i = 0; i < result.length; i++) {
-            Agent curr = agents.get(i);
-            result[i] = new Ellipse2D.Double(curr.xc, curr.yc, 10, 10);
-        }
-        return result;
+    public void stats(){
+        int num_agents = agents.size();
+        Utilities.inform(new String[]{String.valueOf(num_agents), String.valueOf(clock)});
     }
 
     public Agent getNeighbor(Agent a, double radius){
-        // placeholder
-        return a;
+        // 0 to (agents.size() - 1)
+        int start = Utilities.rng.nextInt(agents.size());
+        int i = start + 1;
+        // Get agent at random position in LinkedList
+        Agent b = agents.get(start);
+        // If Agent b is close to A, return agent b
+       if( distance(a, b) <= radius)
+           return b;
+       // Else find another Agent that is close
+       while(i != start){
+           b = agents.get(i);
+           if(distance(a,b) <= radius)
+               return b;
+           // if index reaches the end, go back to start
+           if(i == (agents.size() - 1))
+               i = 0;
+           // else keep incrementing
+           else
+               i++;
+       }
+       // If no such neighbors are close to current agent, return null;
+        return null;
     }
+    private double distance(Agent a, Agent b){ return Math.sqrt( (b.xc - a.xc)^2 + (b.yc - a.xc)^2); }
     // Empty as dictated from Simstation Assignment Details
     public void populate(){}
     private class ClockUpdater extends TimerTask {

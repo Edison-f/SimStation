@@ -6,7 +6,6 @@ public class StatsCommand extends Command {
     @Override
     public void execute() throws Exception {
         Simulation sim = (Simulation)model;
-        // Place holder
-        //sim.populate();
+        sim.stats();
     }
 }
