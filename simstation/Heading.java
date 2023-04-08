@@ -1,13 +1,15 @@
 package simstation;
-import java.util.Random;
+import mvc.Utilities;
+
+import static mvc.Utilities.rng;
+
+//import java.util.Random;
 public enum Heading {
     NORTH, SOUTH, EAST, WEST,
     NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST;
 
     public static Heading random(){
-        Random rand = new Random();
-        // Random integers between 0 - 7
-        int choose = rand.nextInt(8);
+        int choose = rng.nextInt(8);
         if(choose == 0)
             return NORTH;
         else if (choose == 1)

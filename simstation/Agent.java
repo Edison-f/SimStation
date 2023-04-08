@@ -56,6 +56,18 @@ public abstract class Agent implements Runnable, Serializable {
 
     public abstract void update();
 
+    public Heading getHeading() {
+        return heading;
+    }
+
+    public int getXc() {
+        return xc;
+    }
+
+    public int getYc() {
+        return yc;
+    }
+
     public void move(int steps){
         switch (heading){
             // if north subtract y position
