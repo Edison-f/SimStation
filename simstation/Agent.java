@@ -2,6 +2,7 @@ package simstation;
 
 import mvc.Utilities;
 import java.io.Serializable;
+import java.awt.Color;
 
 import static mvc.Utilities.rng;
 
@@ -11,8 +12,10 @@ public abstract class Agent implements Runnable, Serializable {
     protected Heading heading;
     protected int xc, yc;
     boolean suspended, stopped;
-    // transient represents don't write this
+    Color color;
+    // transient represents don't save this, having errors within threads
     transient Thread myThread;
+
     public Agent(){
         name = " ";
         heading = heading.random();
@@ -21,10 +24,27 @@ public abstract class Agent implements Runnable, Serializable {
         suspended = false;
         stopped = false;
         myThread = null;
+        color = null;
     }
-
+        public Agent(Color c){
+        name = " ";
+        heading = heading.random();
+        xc = rng.nextInt(world.size);
+        yc = rng.nextInt(world.size);
+        suspended = false;
+        stopped = false;
+        myThread = null;
+        color = c;
+    }
     public void setSimulation(Simulation s){
         world = s;
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
     public synchronized void stop() { stopped = true; }
     public synchronized boolean isStopped() { return stopped; }
