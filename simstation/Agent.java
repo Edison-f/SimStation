@@ -16,8 +16,8 @@ public abstract class Agent implements Runnable, Serializable {
     public Agent(){
         name = " ";
         heading = heading.random();
-        xc = rng.nextInt(250);
-        yc = rng.nextInt(250);
+        xc = rng.nextInt(world.size);
+        yc = rng.nextInt(world.size);
         suspended = false;
         stopped = false;
         myThread = null;
@@ -66,7 +66,7 @@ public abstract class Agent implements Runnable, Serializable {
             try{
                 checkSuspended();
                 update();
-                Thread.sleep(50);
+                Thread.sleep(30);
             } catch(InterruptedException e){
                 Utilities.inform(e.getMessage());
             }
@@ -134,6 +134,14 @@ public abstract class Agent implements Runnable, Serializable {
                 break;
             }
         }
+        while(xc < 0)
+            xc += world.size;
+        while(yc < 0)
+            yc += world.size;
+        if(xc > world.size)
+            xc = xc % world.size;
+        if(yc > world.size)
+            yc = yc % world.size;
         world.changed();
     }
 }

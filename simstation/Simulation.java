@@ -10,6 +10,8 @@ public class Simulation extends Model {
     private int clock;
     List<Agent> agents;
 
+    public static int size = 250;
+
     public Simulation(){
         agents = new LinkedList<Agent>();
         populate();
