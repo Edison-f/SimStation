@@ -6,7 +6,7 @@ import mvc.*;
 
 public class Simulation extends Model {
 
-    private Timer timer;
+    transient private Timer timer;
     private int clock;
     List<Agent> agents;
 

@@ -11,10 +11,11 @@ public abstract class Agent implements Runnable, Serializable {
     protected Heading heading;
     protected int xc, yc;
     boolean suspended, stopped;
-    Thread myThread;
+    // transient represents don't write this
+    transient Thread myThread;
     public Agent(){
         name = " ";
-        heading = heading.NORTH;
+        heading = heading.random();
         xc = rng.nextInt(250);
         yc = rng.nextInt(250);
         suspended = false;
@@ -50,10 +51,12 @@ public abstract class Agent implements Runnable, Serializable {
     }
 
     public void start() {
-        heading = Heading.random();
-        xc = rng.nextInt(250); // Replace with actual window sizes
-        yc = rng.nextInt(250);
-        run();
+        //heading = Heading.random();
+        myThread = new Thread(this);
+        myThread.start();
+        //xc = rng.nextInt(250); // Replace with actual window sizes
+        //yc = rng.nextInt(250);
+        //run();
     }
     
     // Double check
@@ -63,7 +66,7 @@ public abstract class Agent implements Runnable, Serializable {
             try{
                 checkSuspended();
                 update();
-                Thread.sleep(20);
+                Thread.sleep(50);
             } catch(InterruptedException e){
                 Utilities.inform(e.getMessage());
             }
