@@ -2,7 +2,7 @@ package simstation;
 import mvc.*;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.util.Iterator;
 
 public class SimulationView extends View{
     public SimulationView(Model model){
@@ -12,13 +12,20 @@ public class SimulationView extends View{
     public void paintComponent(Graphics gc) {
         super.paintComponent(gc);
         Color oldColor = gc.getColor();
-        gc.setColor(Color.WHITE);
+        //gc.setColor(Color.WHITE);
         Simulation simulation = (Simulation) model;
-        Ellipse2D.Double[] shapes = simulation.generateShapes();
-        Graphics2D graphics2D = (Graphics2D) gc;
-        for (Ellipse2D.Double shape :
-                shapes) {
-            graphics2D.fill(shape);
+
+        Iterator<Agent> a = simulation.iterator();
+        Agent index;
+        if(a.hasNext()){
+            index = a.next();
+            gc.setColor(index.getColor());
+            gc.fillOval(index.xc, index.yc, 10, 10);
+        }
+        while(a.hasNext()){
+            index = a.next();
+            gc.setColor(index.getColor());
+            gc.fillOval(index.xc, index.yc, 10, 10);
         }
         gc.setColor(oldColor);
     }
