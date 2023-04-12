@@ -2,26 +2,50 @@ package simstation;
 
 import mvc.Utilities;
 import java.io.Serializable;
+import java.awt.Color;
+
+import static mvc.Utilities.rng;
 
 public abstract class Agent implements Runnable, Serializable {
-    private Simulation world;
+    protected Simulation world;
     private String name;
     protected Heading heading;
     protected int xc, yc;
     boolean suspended, stopped;
-    Thread myThread;
+    Color color;
+    // transient represents don't save this, having errors within threads
+    transient Thread myThread;
+
     public Agent(){
         name = " ";
-        heading = heading.NORTH;
-        xc = 0;
-        yc = 0;
+        heading = heading.random();
+        xc = rng.nextInt(world.size);
+        yc = rng.nextInt(world.size);
         suspended = false;
         stopped = false;
         myThread = null;
+        color = null;
+    }
+        public Agent(Color c){
+        name = " ";
+        heading = heading.random();
+        xc = rng.nextInt(world.size);
+        yc = rng.nextInt(world.size);
+        suspended = false;
+        stopped = false;
+        myThread = null;
+        color = c;
     }
 
     public void setSimulation(Simulation s){
         world = s;
+    }
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
     public synchronized void stop() { stopped = true; }
     public synchronized boolean isStopped() { return stopped; }
@@ -39,12 +63,21 @@ public abstract class Agent implements Runnable, Serializable {
            Utilities.inform(e.getMessage());
         }
     }
+    public synchronized void join() {
+        try {
+            if (myThread != null) myThread.join();
+        } catch(InterruptedException e) {
+            Utilities.inform(e.getMessage());
+        }
+    }
 
     public void start() {
-        heading = Heading.random();
-        xc = Utilities.rng.nextInt(800); // Replace with actual window sizes
-        yc = Utilities.rng.nextInt(600);
-        run();
+        //heading = Heading.random();
+        myThread = new Thread(this);
+        myThread.start();
+        //xc = rng.nextInt(250); // Replace with actual window sizes
+        //yc = rng.nextInt(250);
+        //run();
     }
     
     // Double check
@@ -54,7 +87,7 @@ public abstract class Agent implements Runnable, Serializable {
             try{
                 checkSuspended();
                 update();
-                Thread.sleep(20);
+                Thread.sleep(30);
             } catch(InterruptedException e){
                 Utilities.inform(e.getMessage());
             }
@@ -122,6 +155,14 @@ public abstract class Agent implements Runnable, Serializable {
                 break;
             }
         }
+        while(xc < 0)
+            xc += world.size;
+        while(yc < 0)
+            yc += world.size;
+        if(xc > world.size)
+            xc = xc % world.size;
+        if(yc > world.size)
+            yc = yc % world.size;
         world.changed();
     }
 }

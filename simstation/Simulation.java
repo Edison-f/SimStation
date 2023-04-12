@@ -6,9 +6,11 @@ import mvc.*;
 
 public class Simulation extends Model {
 
-    private Timer timer;
+    transient private Timer timer;
     private int clock;
-    List<Agent> agents;
+    protected List<Agent> agents;
+
+    public static int size = 240;
 
     public Simulation(){
         agents = new LinkedList<Agent>();
@@ -48,8 +50,9 @@ public class Simulation extends Model {
 
     public void stats(){
         int num_agents = agents.size();
-        Utilities.inform(new String[]{String.valueOf(num_agents), String.valueOf(clock)});
+        Utilities.inform(new String[]{"Agents: "+ String.valueOf(num_agents), "Clock: "+ String.valueOf(clock)});
     }
+    public Iterator<Agent> iterator() { return agents.iterator();}
 
     public Agent getNeighbor(Agent a, double radius){
         // 0 to (agents.size() - 1)
@@ -58,12 +61,12 @@ public class Simulation extends Model {
         // Get agent at random position in LinkedList
         Agent b = agents.get(start);
         // If Agent b is close to A, return agent b
-       if( distance(a, b) <= radius)
+       if(distance(a, b) <= radius && !a.equals(b))
            return b;
        // Else find another Agent that is close
        while(i != start){
            b = agents.get(i);
-           if(distance(a,b) <= radius)
+           if(distance(a,b) <= radius && !a.equals(b))
                return b;
            // if index reaches the end, go back to start
            if(i == (agents.size() - 1))
