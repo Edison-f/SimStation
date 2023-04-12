@@ -64,16 +64,14 @@ public class Simulation extends Model {
        if( distance(a, b) <= radius)
            return b;
        // Else find another Agent that is close
-       while(i != start){
+       while(i != start && i >= 0 && i < agents.size()){
            b = agents.get(i);
            if(distance(a,b) <= radius)
                return b;
-           // if index reaches the end, go back to start
-           if(i == (agents.size() - 1))
+           i++;
+           if(!(i < agents.size())) {
                i = 0;
-           // else keep incrementing
-           else
-               i++;
+           }
        }
        // If no such neighbors are close to current agent, return null;
         return null;

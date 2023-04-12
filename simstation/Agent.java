@@ -7,7 +7,7 @@ import java.awt.Color;
 import static mvc.Utilities.rng;
 
 public abstract class Agent implements Runnable, Serializable {
-    private Simulation world;
+    protected Simulation world;
     private String name;
     protected Heading heading;
     protected int xc, yc;
