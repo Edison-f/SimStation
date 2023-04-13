@@ -20,31 +20,18 @@ public class PrisonerDilemmaSimulation extends Simulation {
 
     @Override
     public void populate() {
-        cooperators = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-            Prisoner temp = new Prisoner(Prisoner.PrisonerTypes.COOPERATE);
-            cooperators.add(temp);
-            addAgent(temp);
-        }
+        createPrisoners(10, cooperators, Prisoner.PrisonerTypes.COOPERATE);
+        createPrisoners(10, randoms, Prisoner.PrisonerTypes.RANDOMLY_COOPERATE);
+        createPrisoners(10, cheaters, Prisoner.PrisonerTypes.CHEAT);
+        createPrisoners(10, t4ters, Prisoner.PrisonerTypes.TIT4TAT);
+    }
 
-        randoms = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-            Prisoner temp = new Prisoner(Prisoner.PrisonerTypes.RANDOMLY_COOPERATE);
-            randoms.add(temp);
-            addAgent(temp);
-        }
-
-        cheaters = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-            Prisoner temp = new Prisoner(Prisoner.PrisonerTypes.CHEAT);
-            cheaters.add(temp);
-            addAgent(temp);
-        }
-
-        t4ters = new LinkedList<>();
-        for (int i = 0; i < 10; i++) {
-            Prisoner temp = new Prisoner(Prisoner.PrisonerTypes.TIT4TAT);
-            t4ters.add(temp);
+    private void createPrisoners(int n, List<Prisoner> list, Prisoner.PrisonerTypes type) {
+        list = new LinkedList<>();
+        Prisoner temp;
+        for (int i = 0; i < n; i++) {
+            temp = new Prisoner(type);
+            list.add(temp);
             addAgent(temp);
         }
     }
