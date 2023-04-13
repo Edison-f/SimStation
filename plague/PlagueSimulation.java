@@ -35,7 +35,7 @@ class Plague extends Agent {
         heading = Heading.random();
         int steps = Utilities.rng.nextInt(10) + 1;
         move(steps);
-        Plague p = (Plague) this.world.getNeighbor(this, 20);
+        Plague p = (Plague) this.world.getNeighbor(this, 1);
         if (p != null && this.isInfected == true) {
             int randomNum = Utilities.rng.nextInt(100);
             int resistance = p.getResistance();
@@ -54,17 +54,15 @@ class PlagueFactory extends SimulationFactory {
 
 public class PlagueSimulation extends Simulation {
     public static int VIRULENCE = Utilities.rng.nextInt(50); // % chance of infection 0 - 100
-    private int INFECTED = 1;
-    private int UNINFECTED = 10;
     public void populate() {
         // For hosts (infected)
-        for (int i = 0; i < INFECTED; i ++) {
+        for (int i = 0; i < 1; i ++) {
             Plague p = new Plague();
             p.infect();
             addAgent(p);
         }
         // For normals (uninfected)
-        for (int i = 0; i < UNINFECTED; i ++) {
+        for (int i = 0; i < 10; i ++) {
             Plague p = new Plague();
             addAgent(p);
         }
