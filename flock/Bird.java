@@ -20,6 +20,7 @@ public class Bird extends Agent {
     }
 
     public void update(){
+
         Bird a = (Bird) this.world.getNeighbor(this, 1);
         if(a != null){
             this.speed = a.getSpeed();
@@ -29,7 +30,6 @@ public class Bird extends Agent {
         else{
            move(this.speed);
         }
-
     }
 
 }
