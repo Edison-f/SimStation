@@ -24,11 +24,8 @@ class Plague extends Agent {
         return RESISTANCE;
     }
 
-    public int getIsInfected() {
-        if (isInfected) {
-            return 1;
-        }
-        return 0;
+    public boolean isInfected() {
+        return isInfected;
     }
 
     public void update() {
@@ -73,8 +70,7 @@ public class PlagueSimulation extends Simulation {
         int sum = 0;
         for(int i = 0; i < agents.size(); i++) {
             Plague p = (Plague) agents.get(i);
-            int infected = p.getIsInfected();
-            sum += infected;
+            sum += p.isInfected() ? 1 : 0;
         }
         Utilities.inform(new String[] {
                 "#agents = " + agents.size(),
