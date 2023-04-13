@@ -20,6 +20,10 @@ public class PrisonerDilemmaSimulation extends Simulation {
 
     @Override
     public void populate() {
+        cooperators = new LinkedList<>();
+        randoms = new LinkedList<>();
+        cheaters = new LinkedList<>();
+        t4ters = new LinkedList<>();
         createPrisoners(10, cooperators, Prisoner.PrisonerTypes.COOPERATE);
         createPrisoners(10, randoms, Prisoner.PrisonerTypes.RANDOMLY_COOPERATE);
         createPrisoners(10, cheaters, Prisoner.PrisonerTypes.CHEAT);
@@ -27,7 +31,6 @@ public class PrisonerDilemmaSimulation extends Simulation {
     }
 
     private void createPrisoners(int n, List<Prisoner> list, Prisoner.PrisonerTypes type) {
-        list = new LinkedList<>();
         Prisoner temp;
         for (int i = 0; i < n; i++) {
             temp = new Prisoner(type);
@@ -83,13 +86,13 @@ class Prisoner extends Agent {
     @Override
     public void update() {
         heading = Heading.random();
-        int steps = Utilities.rng.nextInt(10) + 1;
-        move(steps);
+        move(Utilities.rng.nextInt(0, 10));
         Prisoner competitor = (Prisoner) world.getNeighbor(this, 10);
         if(competitor == null) return; // No valid competitors found
         boolean thisCoop = cooperate();
         boolean compCoop = competitor.cooperate();
         if (thisCoop) {
+            competitor.partnerCheated = false;
             if (compCoop) { // Both cooperate
                 updateFitness(3);
                 competitor.updateFitness(3);
@@ -98,8 +101,8 @@ class Prisoner extends Agent {
                 competitor.updateFitness(5);
                 partnerCheated = true;
             }
-            competitor.partnerCheated = false;
         } else {
+            competitor.partnerCheated = true;
             if (compCoop) { // This cheated, competitor cooperated
                 updateFitness(5);
                 partnerCheated = false;
@@ -108,7 +111,6 @@ class Prisoner extends Agent {
                 competitor.updateFitness(1);
                 partnerCheated = true;
             }
-            competitor.partnerCheated = true;
         }
     }
 
