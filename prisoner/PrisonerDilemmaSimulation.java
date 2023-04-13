@@ -5,7 +5,9 @@ import mvc.Model;
 import simstation.*;
 import mvc.Utilities;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class PrisonerDilemmaSimulation extends Simulation {
     List<Prisoner> cooperators;
@@ -72,10 +74,22 @@ class Prisoner extends Agent {
     public Prisoner(PrisonerTypes types) {
         super();
         switch (types) {
-            case COOPERATE -> strategy = new Cooperate();
-            case RANDOMLY_COOPERATE -> strategy = new RandomlyCooperate();
-            case CHEAT -> strategy = new Cheat();
-            case TIT4TAT -> strategy = new Tit4Tat();
+            case COOPERATE -> {
+                strategy = new Cooperate();
+                setColor(Color.green);
+            }
+            case RANDOMLY_COOPERATE -> {
+                strategy = new RandomlyCooperate();
+                setColor(Color.yellow);
+            }
+            case CHEAT -> {
+                strategy = new Cheat();
+                setColor(Color.red);
+            }
+            case TIT4TAT -> {
+                strategy = new Tit4Tat();
+                setColor(Color.blue);
+            }
         }
     }
 
