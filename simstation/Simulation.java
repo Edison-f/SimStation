@@ -86,6 +86,10 @@ public class Simulation extends Model {
         }
     }
 
+    public int getClock() {
+        return clock;
+    }
+
     // etc.
 
 }
