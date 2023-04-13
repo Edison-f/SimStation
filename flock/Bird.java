@@ -20,11 +20,15 @@ public class Bird extends Agent {
     }
 
     public void update(){
-        Bird a = (Bird) this.world.getNeighbor(this, 20);
-        if(a != null) {
+
+        Bird a = (Bird) this.world.getNeighbor(this, 1);
+        if(a != null){
             this.speed = a.getSpeed();
             this.heading = a.getHeading();
             move(this.speed);
+        }
+        else{
+           move(this.speed);
         }
     }
 
